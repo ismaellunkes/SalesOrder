@@ -16,111 +16,110 @@ namespace SalesOrder
             int Option = ShowMenu();
 
             Customer Customer = new Customer();
-            Address AdressCustomer = new Address();
             Product product = new Product();
+            Order order = new Order();
+            List<Product> ListProduct = new List<Product>();
+            List<OrderItem> ListOrdemItem = new List<OrderItem>();
 
             while (Option != 9)
             {
 
                 if (Option == 1)
                 {
-                    string CustomerName, LineAddress1, LineAddress2;
-                    Country Country;
+                    string CustomerName, CustomerEmail;
+                    DateTime CustomerBirthDate;
 
                     Console.Write("Nome do cliente >>> ");
                     CustomerName = Console.ReadLine();
 
-                    Console.Write("Endereço >>> ");
-                    LineAddress1 = Console.ReadLine();
+                    Console.Write("E-mail do cliente >>> ");
+                    CustomerEmail = Console.ReadLine();
 
-                    Console.Write("Bairro >>> ");
-                    LineAddress2 = Console.ReadLine();
+                    Console.Write("Nasc. do cliente >>> ");
+                    CustomerBirthDate = DateTime.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Pais >>> ");
-                    int i = 0;
-                    foreach (String item in Enum.GetNames(typeof(Country)))
-                    {
-                        Console.WriteLine(i + " - " + item);
-                        i++;
-                    }
-                    Country = (Country)Enum.Parse(typeof(Country), Console.ReadLine());
+                    Customer = new Customer(0, CustomerName, CustomerEmail, CustomerBirthDate);
 
-                    AdressCustomer = new Address
-                    {
-                        Id = 1,
-                        LineAdress1 = LineAddress1,
-                        LineAdress2 = LineAddress2,
-                        Country = Country
-                    };
-
-                    Customer = new Customer
-                    {
-                        Id = 0,
-                        Nome = CustomerName,
-                        Adress = AdressCustomer
-                    };
                 }
 
                 if (Option == 2)
                 {
 
-                    string ProductName, Description;
-                    double Quantity;
+                    string ProductName;
+                    double ProductPrice;
+                    int QtdeProduct;
 
-                    Console.Write("Nome do produto >>> ");
-                    ProductName = Console.ReadLine();
+                    Console.Write("Quantos produtos serão cadastrados >>> ");
+                    QtdeProduct = int.Parse(Console.ReadLine());
 
-                    Console.Write("Descrição >>> ");
-                    Description = Console.ReadLine();
-
-                    Console.Write("Quantidade em estoque >>> ");
-                    Quantity = double.Parse(Console.ReadLine());
-
-                    product = new Product
+                    for (int i = 0; i < QtdeProduct; i++)
                     {
-                        Id = 0,
-                        Name = ProductName,
-                        Description = Description,
-                        Quantity = Quantity
-                    };
+
+                        Console.Write("Nome do produto >>> ");
+                        ProductName = Console.ReadLine();
+
+                        Console.Write("Preço >>> ");
+                        ProductPrice = double.Parse(Console.ReadLine());
+
+                        product = new Product(0, ProductName, ProductPrice);
+
+                        ListProduct.Add(product);
+
+                    }
+
                 }
 
                 if (Option == 3)
                 {
-                    double OQuantity;
 
-                    Console.Write("\nNome do cliente     >>> " + Customer.Nome);
-                    Console.WriteLine("\nEndereço do cliente >>> " + Customer.Adress);
-                    Console.Write("\nNome do produto     >>> " + product.Name);
-                    Console.Write("\nDescriçao do produto >>> " + product.Description);
-                    Console.WriteLine("\nEstoque >>> " + product.Quantity);
+                    int XProd = 0, XProdQtde = 0;
 
-                    Order order = new Order
+                    Console.Write("\nCustomer name     >>> " + Customer.Nome);
+                    Console.Write("\nCustomer e-mail   >>> " + Customer.Email);
+                    Console.Write("\nCustomer BirthDate>>> " + Customer.BirthDate);
+
+                    order = new Order(0, DateTime.Now, OrderStatus.PendingPayment, Customer);
+
+                    if (ListProduct.Count == 0)
                     {
-                        id = 0,
-                        Costumer = Customer,
-                        Moment = DateTime.Now,
-                        Status = OrderStatus.Processing
-                    };
-
-                    Console.Write("Informe a quantidade do produto a ser adquirida >>>> ");
-                    OQuantity = double.Parse(Console.ReadLine());
-
-                    OrderItem orderItem = new OrderItem
+                        Console.WriteLine("\nOOH No, Haven't products on the list!!");
+                    }
+                    else
                     {
-                        Id = 0,
-                        Order = order,
-                        Product = product,
-                        Quantity = OQuantity,
-                        Total = 0
-                    };
+                        int flag = 0;
+
+                        while (flag == 0)
+                        {
+                            Console.WriteLine("\nChange product for add on the order >>> ");
+
+                            foreach (Product item in ListProduct)
+                            {
+                                Console.WriteLine(XProd + " - " + product.Name);
+                                XProd++;
+                            }
+
+                            XProd = int.Parse(Console.ReadLine());
+
+                            Console.WriteLine("\nQuantity >>> ");
+                            XProdQtde = int.Parse(Console.ReadLine());
+
+                            OrderItem orderItem = new OrderItem(0, ListProduct.ElementAt(XProd), XProdQtde,
+                                                                                ListProduct.ElementAt(XProd).Price);
+
+                            order.AddItem(orderItem);
+
+                            Console.WriteLine("\n0 for add more products on the order ");
+                            flag = int.Parse(Console.ReadLine());
+
+                        }                        
+
+                    }
                 }
 
                 if (Option == 4)
                 {
 
                     Console.Write("\nNome do cliente     >>> " + Customer.Nome);
-                    Console.WriteLine("\nEndereço do cliente >>> " + Customer.Adress);
 
                 }
 
@@ -128,8 +127,27 @@ namespace SalesOrder
                 {
 
                     Console.Write("\nNome do produto     >>> " + product.Name);
-                    Console.Write("\nDescriçao do produto >>> " + product.Description);
-                    Console.WriteLine("\nEstoque >>> " + product.Quantity);
+
+                }
+
+                if (Option == 6)
+                {
+
+                    Console.Write("\nCustomer name     >>> " + Customer.Nome);
+                    Console.Write("\nCustomer e-mail   >>> " + Customer.Email);
+                    Console.Write("\nCustomer BirthDate>>> " + Customer.BirthDate);
+                    Console.Write("\nOrder>>> " + order.id);
+                    Console.Write("\nMoment>>> " + order.Moment);
+                    Console.Write("\nTotal>>> " + order.Total());
+                    Console.Write("\nStatus>>> " + order.Status);                    
+                    Console.Write("\n********    ITEMS  ********");
+                    Console.Write("");
+                    Console.Write("");
+                    foreach (OrderItem item in order.Items)
+                    {
+                        Console.WriteLine(order.Items);
+                    }
+
 
                 }
 
@@ -146,6 +164,7 @@ namespace SalesOrder
             Console.WriteLine("3 - Incluir nova venda");
             Console.WriteLine("4 - Exibir cliente cadastrado");
             Console.WriteLine("5 - Exibir produto cadastrado");
+            Console.WriteLine("5 - Exibir resumo da venda");
             Console.WriteLine("9 - Encerrar");
 
             int Option = int.Parse(Console.ReadLine());
