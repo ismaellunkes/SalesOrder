@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SalesOrder.Entities.Enums
 {
-    enum Country
+    enum Country : int
     {
         Brazil,
         EUA,
