@@ -148,7 +148,6 @@ namespace SalesOrder
                     Console.WriteLine("");
                     Console.WriteLine("\n********    ITEMS  ********");
                     Console.WriteLine("");
-
                     Console.WriteLine("_________________________________________________");
                     Console.WriteLine("|                                                |");
                     Console.WriteLine("|    Product   |  Quantity |  Price |  Total Item|");
