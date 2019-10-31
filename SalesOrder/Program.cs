@@ -72,7 +72,7 @@ namespace SalesOrder
                 if (Option == 3)
                 {
 
-                    int XProd = 0, XProdQtde = 0;
+                    int XProd, XProdQtde = 0;
 
                     Console.Write("\nCustomer name     >>> " + Customer.Nome);
                     Console.Write("\nCustomer e-mail   >>> " + Customer.Email);
@@ -92,9 +92,10 @@ namespace SalesOrder
                         {
                             Console.WriteLine("\nChange product for add on the order >>> ");
 
+                            XProd = 0;
                             foreach (Product item in ListProduct)
                             {
-                                Console.WriteLine(XProd + " - " + product.Name);
+                                Console.WriteLine(XProd + " - " + item.Name);
                                 XProd++;
                             }
 
@@ -137,17 +138,24 @@ namespace SalesOrder
                     Console.Write("\nCustomer e-mail   >>> " + Customer.Email);
                     Console.Write("\nCustomer BirthDate>>> " + Customer.BirthDate);
                     Console.Write("\nOrder>>> " + order.id);
-                    Console.Write("\nMoment>>> " + order.Moment);
-                    Console.Write("\nTotal>>> " + order.Total());
-                    Console.Write("\nStatus>>> " + order.Status);                    
-                    Console.Write("\n********    ITEMS  ********");
-                    Console.Write("");
-                    Console.Write("");
+                    Console.Write("\nMoment>>> " + order.Moment);                    
+                    Console.Write("\nStatus>>> " + order.Status);
+                    Console.WriteLine("");
+                    Console.WriteLine("\n********    ITEMS  ********");
+                    Console.WriteLine("");
+
+                    Console.WriteLine("_________________________________________________");
+                    Console.WriteLine("|                                                |");
+                    Console.WriteLine("|    Product   |  Quantity |  Price |  Total Item|");
+                    Console.WriteLine("|________________________________________________|");
                     foreach (OrderItem item in order.Items)
                     {
-                        Console.WriteLine(order.Items);
+                        Console.WriteLine("|    "+item.Product.Name+"     |  "+item.Quantity+"   | R$ "+item.Price+" | R$ "+item.Quantity*item.Price+" |");
                     }
-
+                    Console.WriteLine("|_________________________________________________|");
+                    Console.WriteLine("Total>>> " + order.Total());
+                    Console.WriteLine("");
+                    Console.WriteLine("**************************");
 
                 }
 
@@ -164,7 +172,7 @@ namespace SalesOrder
             Console.WriteLine("3 - Incluir nova venda");
             Console.WriteLine("4 - Exibir cliente cadastrado");
             Console.WriteLine("5 - Exibir produto cadastrado");
-            Console.WriteLine("5 - Exibir resumo da venda");
+            Console.WriteLine("6 - Exibir resumo da venda");
             Console.WriteLine("9 - Encerrar");
 
             int Option = int.Parse(Console.ReadLine());
