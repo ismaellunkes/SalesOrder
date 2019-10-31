@@ -5,7 +5,6 @@ using System.Linq;
 using SalesOrder.Entities;
 using SalesOrder.Entities.Enums;
 
-
 namespace SalesOrder
 {
     class Program
@@ -116,7 +115,6 @@ namespace SalesOrder
 
                             OrderItem orderItem = new OrderItem(0, ListProduct.ElementAt(XProd), XProdQtde,
                                                                                 ListProduct.ElementAt(XProd).Price);
-
                             order.AddItem(orderItem);
 
                             Console.WriteLine("\n0 for add more products on the order ");
