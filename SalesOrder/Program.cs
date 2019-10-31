@@ -62,6 +62,7 @@ namespace SalesOrder
                         if (opt == 'C' || opt == 'c')
                         {
                             product = new Product(i, ProductName, ProductPrice);
+                            ListProduct.Add(product);
                         }
 
                         if (opt == 'U' || opt == 'u')
@@ -69,15 +70,15 @@ namespace SalesOrder
                             Console.Write("Manufacture date >>> ");
                             DateTime date = DateTime.Parse(Console.ReadLine());
                             product = new UsedProduct(i, ProductName, ProductPrice, date);
+                            ListProduct.Add(product);
                         }
                         if (opt == 'I' || opt == 'i')
                         {
                             Console.Write("Customs fee>>> ");
                             double FeeC = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                             product = new ImportedProduct(i, ProductName, ProductPrice, FeeC);
-                        }
-
-                        ListProduct.Add(product);
+                            ListProduct.Add(product);
+                        }                        
                     }
                 }
 
@@ -151,7 +152,7 @@ namespace SalesOrder
                     Console.WriteLine("|________________________________________________|");
                     foreach (OrderItem item in order.Items)
                     {
-                        Console.WriteLine("|    " + item.Product.Name + "     |  " + item.Quantity + "       | R$ " 
+                        Console.WriteLine("|    " + item.Product.Name + "     |  " + item.Quantity + "       | R$ "
                             + item.Price + "     | R$ " + item.SubTotal() + "     |");
                     }
                     Console.WriteLine("|_________________________________________________|");
