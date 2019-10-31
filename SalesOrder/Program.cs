@@ -39,7 +39,6 @@ namespace SalesOrder
                     CustomerBirthDate = DateTime.Parse(Console.ReadLine());
 
                     Customer = new Customer(0, CustomerName, CustomerEmail, CustomerBirthDate);
-
                 }
 
                 if (Option == 2)
@@ -54,7 +53,6 @@ namespace SalesOrder
 
                     for (int i = 0; i < QtdeProduct; i++)
                     {
-
                         Console.Write("Nome do produto >>> ");
                         ProductName = Console.ReadLine();
 
@@ -81,16 +79,13 @@ namespace SalesOrder
                             double FeeC = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
                             product = new ImportedProduct(i, ProductName, ProductPrice, FeeC);
                         }
-                                          
+
                         ListProduct.Add(product);
-
                     }
-
                 }
 
                 if (Option == 3)
                 {
-
                     int XProd, XProdQtde = 0;
 
                     Console.Write("\nCustomer name     >>> " + Customer.Nome);
@@ -110,10 +105,10 @@ namespace SalesOrder
                         while (flag == 0)
                         {
                             Console.WriteLine("\nChange product for add on the order >>> ");
-                            
+
                             foreach (Product item in ListProduct)
                             {
-                                Console.WriteLine(item.Id + " - " + item.Name);                                
+                                Console.WriteLine(item.Id + " - " + item.Name);
                             }
 
                             XProd = int.Parse(Console.ReadLine());
@@ -128,34 +123,27 @@ namespace SalesOrder
 
                             Console.WriteLine("\n0 for add more products on the order ");
                             flag = int.Parse(Console.ReadLine());
-
-                        }                        
-
+                        }
                     }
                 }
 
                 if (Option == 4)
                 {
-
                     Console.Write("\nNome do cliente     >>> " + Customer.Nome);
-
                 }
 
                 if (Option == 5)
                 {
-
                     Console.Write("\nNome do produto     >>> " + product.Name);
-
                 }
 
                 if (Option == 6)
                 {
-
                     Console.Write("\nCustomer name     >>> " + Customer.Nome);
                     Console.Write("\nCustomer e-mail   >>> " + Customer.Email);
                     Console.Write("\nCustomer BirthDate>>> " + Customer.BirthDate);
                     Console.Write("\nOrder>>> " + order.id);
-                    Console.Write("\nMoment>>> " + order.Moment);                    
+                    Console.Write("\nMoment>>> " + order.Moment);
                     Console.Write("\nStatus>>> " + order.Status);
                     Console.WriteLine("");
                     Console.WriteLine("\n********    ITEMS  ********");
@@ -167,30 +155,25 @@ namespace SalesOrder
                     Console.WriteLine("|________________________________________________|");
                     foreach (OrderItem item in order.Items)
                     {
-                        Console.WriteLine("|    "+item.Product.Name+"     |  "+item.Quantity+"       | R$ "+item.Price+"     | R$ "+item.SubTotal()+"     |");
+                        Console.WriteLine("|    " + item.Product.Name + "     |  " + item.Quantity + "       | R$ " + item.Price + "     | R$ " + item.SubTotal() + "     |");
                     }
                     Console.WriteLine("|_________________________________________________|");
                     Console.WriteLine("Total>>> " + order.Total());
                     Console.WriteLine("");
                     Console.WriteLine("**************************");
-
                 }
 
                 if (Option == 7)
                 {
-
                     Console.WriteLine();
                     Console.WriteLine(" *********  PRICE TAGS ************");
                     foreach (Product item in ListProduct)
                     {
                         Console.WriteLine(item.PriceTag());
                     }
-
                 }
 
-
                 Option = ShowMenu();
-
             }
         }
 
@@ -210,7 +193,5 @@ namespace SalesOrder
 
             return Option;
         }
-
     }
 }
-

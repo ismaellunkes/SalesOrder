@@ -21,7 +21,7 @@ namespace SalesOrder.Entities
 
         public virtual string PriceTag()
         {
-            return Name + "  R$ " +Price.ToString("F2", CultureInfo.InvariantCulture);
+            return Name + "  R$ " + Price.ToString("F2", CultureInfo.InvariantCulture);
         }
 
     }

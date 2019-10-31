@@ -8,7 +8,7 @@
         public double Price { get; set; }
 
         public OrderItem()
-        {            
+        {
         }
 
         public OrderItem(int id, Product product, double quantity, double price)

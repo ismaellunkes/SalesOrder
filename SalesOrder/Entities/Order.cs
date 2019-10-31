@@ -33,7 +33,7 @@ namespace SalesOrder.Entities
         {
             Items.Remove(orderItem);
         }
-       
+
         public double Total()
         {
             double sum = 0;
