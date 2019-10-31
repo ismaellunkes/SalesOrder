@@ -27,13 +27,13 @@ namespace SalesOrder
                     string CustomerName, CustomerEmail;
                     DateTime CustomerBirthDate;
 
-                    Console.Write("Nome do cliente >>> ");
+                    Console.Write("Customer name >>> ");
                     CustomerName = Console.ReadLine();
 
-                    Console.Write("E-mail do cliente >>> ");
+                    Console.Write("Customer mail >>> ");
                     CustomerEmail = Console.ReadLine();
 
-                    Console.Write("Nasc. do cliente >>> ");
+                    Console.Write("Customer birth >>> ");
                     CustomerBirthDate = DateTime.Parse(Console.ReadLine());
 
                     Customer = new Customer(0, CustomerName, CustomerEmail, CustomerBirthDate);
@@ -45,15 +45,15 @@ namespace SalesOrder
                     double ProductPrice;
                     int QtdeProduct;
 
-                    Console.Write("Quantos produtos serão cadastrados >>> ");
+                    Console.Write("How many products will be registered ? >>> ");
                     QtdeProduct = int.Parse(Console.ReadLine());
 
                     for (int i = 0; i < QtdeProduct; i++)
                     {
-                        Console.Write("Nome do produto >>> ");
+                        Console.Write("Product name >>> ");
                         ProductName = Console.ReadLine();
 
-                        Console.Write("Preço >>> ");
+                        Console.Write("Price >>> ");
                         ProductPrice = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
                         Console.Write("Commom, used or imported (C/U/I) >>> ");
