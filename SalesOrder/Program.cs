@@ -12,7 +12,6 @@ namespace SalesOrder
     {
         static void Main(string[] args)
         {
-
             int Option = ShowMenu();
 
             Customer Customer = new Customer();
@@ -23,7 +22,6 @@ namespace SalesOrder
 
             while (Option != 9)
             {
-
                 if (Option == 1)
                 {
                     string CustomerName, CustomerEmail;
@@ -43,7 +41,6 @@ namespace SalesOrder
 
                 if (Option == 2)
                 {
-
                     string ProductName;
                     double ProductPrice;
                     int QtdeProduct;
