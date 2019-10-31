@@ -150,7 +150,7 @@ namespace SalesOrder
                     Console.WriteLine("|________________________________________________|");
                     foreach (OrderItem item in order.Items)
                     {
-                        Console.WriteLine("|    "+item.Product.Name+"     |  "+item.Quantity+"   | R$ "+item.Price+" | R$ "+item.Quantity*item.Price+" |");
+                        Console.WriteLine("|    "+item.Product.Name+"     |  "+item.Quantity+"       | R$ "+item.Price+"     | R$ "+item.SubTotal()+"     |");
                     }
                     Console.WriteLine("|_________________________________________________|");
                     Console.WriteLine("Total>>> " + order.Total());
