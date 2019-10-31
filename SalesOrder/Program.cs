@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SalesOrder.Entities;
 using SalesOrder.Entities.Enums;
+
 
 namespace SalesOrder
 {
@@ -59,10 +59,29 @@ namespace SalesOrder
                         ProductName = Console.ReadLine();
 
                         Console.Write("Preço >>> ");
-                        ProductPrice = double.Parse(Console.ReadLine());
+                        ProductPrice = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-                        product = new Product(0, ProductName, ProductPrice);
+                        Console.Write("Commom, used or imported (C/U/I) >>> ");
+                        char opt = char.Parse(Console.ReadLine());
 
+                        if (opt == 'C' || opt == 'c')
+                        {
+                            product = new Product(i, ProductName, ProductPrice);
+                        }
+
+                        if (opt == 'U' || opt == 'u')
+                        {
+                            Console.Write("Manufacture date >>> ");
+                            DateTime date = DateTime.Parse(Console.ReadLine());
+                            product = new UsedProduct(i, ProductName, ProductPrice, date);
+                        }
+                        if (opt == 'I' || opt == 'i')
+                        {
+                            Console.Write("Customs fee>>> ");
+                            double FeeC = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                            product = new ImportedProduct(i, ProductName, ProductPrice, FeeC);
+                        }
+                                          
                         ListProduct.Add(product);
 
                     }
@@ -91,12 +110,10 @@ namespace SalesOrder
                         while (flag == 0)
                         {
                             Console.WriteLine("\nChange product for add on the order >>> ");
-
-                            XProd = 0;
+                            
                             foreach (Product item in ListProduct)
                             {
-                                Console.WriteLine(XProd + " - " + item.Name);
-                                XProd++;
+                                Console.WriteLine(item.Id + " - " + item.Name);                                
                             }
 
                             XProd = int.Parse(Console.ReadLine());
@@ -159,6 +176,19 @@ namespace SalesOrder
 
                 }
 
+                if (Option == 7)
+                {
+
+                    Console.WriteLine();
+                    Console.WriteLine(" *********  PRICE TAGS ************");
+                    foreach (Product item in ListProduct)
+                    {
+                        Console.WriteLine(item.PriceTag());
+                    }
+
+                }
+
+
                 Option = ShowMenu();
 
             }
@@ -173,6 +203,7 @@ namespace SalesOrder
             Console.WriteLine("4 - Exibir cliente cadastrado");
             Console.WriteLine("5 - Exibir produto cadastrado");
             Console.WriteLine("6 - Exibir resumo da venda");
+            Console.WriteLine("7 - Exibir Price Tags");
             Console.WriteLine("9 - Encerrar");
 
             int Option = int.Parse(Console.ReadLine());

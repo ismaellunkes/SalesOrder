@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\UsedProduct.cs" />
+    <Compile Include="Entities\ImportedProduct.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\OrderItem.cs" />

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 namespace SalesOrder.Entities
 {
@@ -22,5 +18,11 @@ namespace SalesOrder.Entities
             Name = name;
             Price = price;
         }
+
+        public virtual string PriceTag()
+        {
+            return Name + "  R$ " +Price.ToString("F2", CultureInfo.InvariantCulture);
+        }
+
     }
 }
