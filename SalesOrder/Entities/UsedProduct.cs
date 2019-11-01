@@ -6,9 +6,7 @@ namespace SalesOrder.Entities
     {
         public DateTime ManufactureDate { get; set; }
 
-        public UsedProduct()
-        {
-        }
+        public UsedProduct() { }
 
         public UsedProduct(int id, string name, double price, DateTime manufactureDate)
             : base(id, name, price)

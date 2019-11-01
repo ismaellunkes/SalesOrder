@@ -13,8 +13,9 @@ namespace SalesOrder
         {
             int Option = ShowMenu();
 
+            /*Instanciando os objetos para que possam estar acessíveis*/
             Customer Customer = new Customer();
-            Product product = new Product();
+            Product product = new CommonProduct();
             Order order = new Order();
             List<Product> ListProduct = new List<Product>();
             List<OrderItem> ListOrdemItem = new List<OrderItem>();
@@ -40,10 +41,12 @@ namespace SalesOrder
 
                 if (Option == 2)
                 {
+                    /*Pode-se registrar 3 tipos de produtos: comum, usados (que terão data de fabricação)
+                     * e importados( que terão taxa alfandegária de 110% sobre o valor do imposto acrescido no seu preço) */
                     string ProductName;
                     double ProductPrice;
                     int QtdeProduct;
-
+                    
                     Console.Write("How many products will be registered ? >>> ");
                     QtdeProduct = int.Parse(Console.ReadLine());
 
@@ -60,7 +63,7 @@ namespace SalesOrder
 
                         if (opt == 'C' || opt == 'c')
                         {
-                            product = new Product(i, ProductName, ProductPrice);
+                            product = new CommonProduct(i, ProductName, ProductPrice);
                             ListProduct.Add(product);
                         }
 
@@ -121,19 +124,9 @@ namespace SalesOrder
                             flag = int.Parse(Console.ReadLine());
                         }
                     }
-                }
+                }               
 
                 if (Option == 4)
-                {
-                    Console.Write("\nNome do cliente     >>> " + Customer.Nome);
-                }
-
-                if (Option == 5)
-                {
-                    Console.Write("\nNome do produto     >>> " + product.Name);
-                }
-
-                if (Option == 6)
                 {
                     Console.Write("\nCustomer name     >>> " + Customer.Nome);
                     Console.Write("\nCustomer e-mail   >>> " + Customer.Email);
@@ -143,7 +136,7 @@ namespace SalesOrder
                     Console.Write("\nStatus>>> " + order.Status);
                     Console.WriteLine("");
                     Console.WriteLine("\n********    ITEMS  ********");
-                    Console.WriteLine("");
+                    Console.WriteLine();
                     Console.WriteLine("_________________________________________________");
                     Console.WriteLine("|                                                |");
                     Console.WriteLine("|    Product   |  Quantity |  Price |  Total Item|");
@@ -159,7 +152,7 @@ namespace SalesOrder
                     Console.WriteLine("**************************");
                 }
 
-                if (Option == 7)
+                if (Option == 5)
                 {
                     Console.WriteLine();
                     Console.WriteLine(" *********  PRICE TAGS ************");
@@ -179,10 +172,8 @@ namespace SalesOrder
             Console.WriteLine("1 - Cadastrar novo cliente");
             Console.WriteLine("2 - Cadastrar novo Produto");
             Console.WriteLine("3 - Incluir nova venda");
-            Console.WriteLine("4 - Exibir cliente cadastrado");
-            Console.WriteLine("5 - Exibir produto cadastrado");
-            Console.WriteLine("6 - Exibir resumo da venda");
-            Console.WriteLine("7 - Exibir Price Tags");
+            Console.WriteLine("4 - Exibir resumo da venda");
+            Console.WriteLine("5 - Exibir Price Tags");
             Console.WriteLine("9 - Encerrar");
 
             int Option = int.Parse(Console.ReadLine());

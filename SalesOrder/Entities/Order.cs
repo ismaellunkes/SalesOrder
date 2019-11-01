@@ -12,9 +12,7 @@ namespace SalesOrder.Entities
         public Customer Costumer { get; set; }
         public List<OrderItem> Items = new List<OrderItem>();
 
-        public Order()
-        {
-        }
+        public Order() { }
 
         public Order(int id, DateTime moment, OrderStatus status, Customer costumer)
         {

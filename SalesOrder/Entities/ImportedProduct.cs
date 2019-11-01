@@ -6,9 +6,7 @@ namespace SalesOrder.Entities
     {
         public double CustomsFee { get; set; }
 
-        public ImportedProduct()
-        {
-        }
+        public ImportedProduct() { }
 
         public ImportedProduct(int id, string name, double price, double customsFee)
             : base(id, name, price)

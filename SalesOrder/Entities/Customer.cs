@@ -9,9 +9,7 @@ namespace SalesOrder.Entities
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }
 
-        public Customer()
-        {
-        }
+        public Customer() { }
 
         public Customer(int id, string nome, string email, DateTime birthDate)
         {
