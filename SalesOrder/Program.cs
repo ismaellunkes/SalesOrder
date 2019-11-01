@@ -46,41 +46,48 @@ namespace SalesOrder
                     string ProductName;
                     double ProductPrice;
                     int QtdeProduct;
-                    
+
                     Console.Write("How many products will be registered ? >>> ");
                     QtdeProduct = int.Parse(Console.ReadLine());
 
                     for (int i = 0; i < QtdeProduct; i++)
                     {
-                        Console.Write("Product name >>> ");
-                        ProductName = Console.ReadLine();
-
-                        Console.Write("Price >>> ");
-                        ProductPrice = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
-                        Console.Write("Commom, used or imported (C/U/I) >>> ");
-                        char opt = char.Parse(Console.ReadLine());
-
-                        if (opt == 'C' || opt == 'c')
+                        try
                         {
-                            product = new CommonProduct(i, ProductName, ProductPrice);
-                            ListProduct.Add(product);
+                            Console.Write("Product name >>> ");
+                            ProductName = Console.ReadLine();
+
+                            Console.Write("Price >>> ");
+                            ProductPrice = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                            Console.Write("Commom, used or imported (C/U/I) >>> ");
+                            char opt = char.Parse(Console.ReadLine());
+
+                            if (opt == 'C' || opt == 'c')
+                            {
+                                product = new CommonProduct(i, ProductName, ProductPrice);
+                                ListProduct.Add(product);
+                            }
+
+                            if (opt == 'U' || opt == 'u')
+                            {
+                                Console.Write("Manufacture date >>> ");
+                                DateTime date = DateTime.Parse(Console.ReadLine());
+                                product = new UsedProduct(i, ProductName, ProductPrice, date);
+                                ListProduct.Add(product);
+                            }
+                            if (opt == 'I' || opt == 'i')
+                            {
+                                Console.Write("Customs fee>>> ");
+                                double FeeC = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                                product = new ImportedProduct(i, ProductName, ProductPrice, FeeC);
+                                ListProduct.Add(product);
+                            }
                         }
-
-                        if (opt == 'U' || opt == 'u')
+                        catch (FormatException f)
                         {
-                            Console.Write("Manufacture date >>> ");
-                            DateTime date = DateTime.Parse(Console.ReadLine());
-                            product = new UsedProduct(i, ProductName, ProductPrice, date);
-                            ListProduct.Add(product);
+                            Console.WriteLine("Format is not allowed!" + f);
                         }
-                        if (opt == 'I' || opt == 'i')
-                        {
-                            Console.Write("Customs fee>>> ");
-                            double FeeC = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                            product = new ImportedProduct(i, ProductName, ProductPrice, FeeC);
-                            ListProduct.Add(product);
-                        }                        
                     }
                 }
 
@@ -96,7 +103,7 @@ namespace SalesOrder
 
                     if (ListProduct.Count == 0)
                     {
-                        Console.WriteLine("\nOOH No, Haven't products on the list!!");
+                        Console.WriteLine("\nOOH No, you haven't products on the list!!");
                     }
                     else
                     {
@@ -104,27 +111,34 @@ namespace SalesOrder
 
                         while (flag == 0)
                         {
-                            Console.WriteLine("\nChange product for add on the order >>> ");
-
-                            foreach (Product item in ListProduct)
+                            try
                             {
-                                Console.WriteLine(item.Id + " - " + item.Name);
+                                Console.WriteLine("\nChange product for add on the order >>> ");
+
+                                foreach (Product item in ListProduct)
+                                {
+                                    Console.WriteLine(item.Id + " - " + item.Name);
+                                }
+
+                                XProd = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine("\nQuantity >>> ");
+                                XProdQtde = int.Parse(Console.ReadLine());
+
+                                OrderItem orderItem = new OrderItem(0, ListProduct.ElementAt(XProd), XProdQtde,
+                                                                                    ListProduct.ElementAt(XProd).Price);
+                                order.AddItem(orderItem);
+
+                                Console.WriteLine("\n0 for add more products on the order ");
+                                flag = int.Parse(Console.ReadLine());
                             }
-
-                            XProd = int.Parse(Console.ReadLine());
-
-                            Console.WriteLine("\nQuantity >>> ");
-                            XProdQtde = int.Parse(Console.ReadLine());
-
-                            OrderItem orderItem = new OrderItem(0, ListProduct.ElementAt(XProd), XProdQtde,
-                                                                                ListProduct.ElementAt(XProd).Price);
-                            order.AddItem(orderItem);
-
-                            Console.WriteLine("\n0 for add more products on the order ");
-                            flag = int.Parse(Console.ReadLine());
+                            catch (FormatException f)
+                            {
+                                Console.WriteLine("Format is not allowed: " + f.Message);
+                            }
                         }
                     }
-                }               
+                }
 
                 if (Option == 4)
                 {
@@ -168,15 +182,24 @@ namespace SalesOrder
 
         static int ShowMenu()
         {
-            Console.WriteLine("\n**** MENU *****");
-            Console.WriteLine("1 - Cadastrar novo cliente");
-            Console.WriteLine("2 - Cadastrar novo Produto");
-            Console.WriteLine("3 - Incluir nova venda");
-            Console.WriteLine("4 - Exibir resumo da venda");
-            Console.WriteLine("5 - Exibir Price Tags");
-            Console.WriteLine("9 - Encerrar");
+            int Option = 0;
 
-            int Option = int.Parse(Console.ReadLine());
+            try
+            {
+                Console.WriteLine("\n**** MENU *****");
+                Console.WriteLine("1 - Cadastrar novo cliente");
+                Console.WriteLine("2 - Cadastrar novo Produto");
+                Console.WriteLine("3 - Incluir nova venda");
+                Console.WriteLine("4 - Exibir resumo da venda");
+                Console.WriteLine("5 - Exibir Price Tags");
+                Console.WriteLine("9 - Encerrar");
+
+                Option = int.Parse(Console.ReadLine());
+            }
+            catch (FormatException f)
+            {
+                Console.WriteLine("Format is not allowed: " + f.Message);
+            }
 
             return Option;
         }
